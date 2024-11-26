@@ -35,7 +35,7 @@ class Accountant(
     }
 
     fun removeProductCard() {
-
+        val cards = loadAllCards()
     }
 
     fun loadAllCards(): MutableList<ProductCard> {
@@ -67,7 +67,6 @@ class Accountant(
                         ShoeCard(name, brand, price, size)
                     }
                 }
-            productCard.printInfo()
             cards.add(productCard)
         }
         return cards
