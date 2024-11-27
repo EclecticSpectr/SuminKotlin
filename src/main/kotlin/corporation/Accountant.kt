@@ -36,6 +36,18 @@ class Accountant(
 
     fun removeProductCard() {
         val cards = loadAllCards()
+        print("Enter name of card to removing: ")
+        val name = readln()
+        for (card in cards) {
+            if (card.name == name) {
+                cards.remove(card)
+                break
+            }
+        }
+        file.writeText("")
+        for (card in cards) {
+            saveProductCardToFile(card)
+        }
     }
 
     fun loadAllCards(): MutableList<ProductCard> {
@@ -73,8 +85,11 @@ class Accountant(
     }
 
     fun showAllItems() {
-        val cards = mutableListOf<ProductCard>()
         val products = file.readText().trim().split('\n')
+
+        if (products.isEmpty()) {
+            return
+        }
 
         for (product in products) {
             val properties = product.split('%')
@@ -102,7 +117,28 @@ class Accountant(
                     }
                 }
             productCard.printInfo()
-            cards.add(productCard)
+        }
+    }
+
+    fun saveProductCardToFile(productCard: ProductCard) {
+        file.appendText("${productCard.name}%")
+        file.appendText("${productCard.brand}%")
+        file.appendText("${productCard.price}%")
+        when (productCard) {
+            is FoodCard -> {
+                val caloric = productCard.caloric
+                file.appendText("$caloric%${ProductType.FOOD}\n")
+            }
+
+            is ShoeCard -> {
+                val size = productCard.size
+                file.appendText("$size%${ProductType.SHOE}\n")
+            }
+
+            is ApplianceCard -> {
+                val wattage = productCard.wattage
+                file.appendText("$wattage%${ProductType.APPLIANCE}\n")
+            }
         }
     }
 
