@@ -54,6 +54,10 @@ class Accountant(
         val cards = mutableListOf<ProductCard>()
         val products = file.readText().trim().split('\n')
 
+        if (products.isEmpty()) {
+            return cards
+        }
+
         for (product in products) {
             val properties = product.split('%')
             val name = properties[0]

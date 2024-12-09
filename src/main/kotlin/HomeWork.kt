@@ -1,29 +1,49 @@
-class Car(
-    val make: String,
-    val model: String,
-    val year: Int,
-    val vin: String,
-    val color: String,
+data class Order(
+    val id: Int,
+    val status: String,
+    val type: String
 )
 
-fun serialize(car: Car): String {
-    return "${car.make}%${car.model}%${car.year}%${car.vin}%${car.color}"
+val orders = mutableListOf<Order>()
+
+fun registerOrder() {
+    while (true) {
+        print("0 to exit; 1 to add ")
+        val action = readln().toInt()
+        if (action == 0) {
+            break
+        }
+        print("Type: ")
+        val type = readln()
+        print("Status: ")
+        val status = readln()
+        val id = orders.size + 1
+        val order = Order(id, status, type)
+        orders.add(order)
+    }
 }
 
-fun deserialize(carAsString: String): Car {
-    val splitString = carAsString.trim().split("%")
-    return Car(
-        splitString[0],
-        splitString[1],
-        splitString[2].toInt(),
-        splitString[3],
-        splitString[4]
-    )
+fun show() {
+    for (order in orders) {
+        println("id: ${order.id}, status: ${order.status}, type: ${order.type}")
+    }
+}
+
+fun removeCompletedOrders(orders: List<Order>, typeToRemove: String): List<Order> {
+    val ordersMutable = orders.toMutableList()
+    for (order in ordersMutable) {
+        if (order.status == "completed" && order.type == typeToRemove) {
+            ordersMutable.remove(order)
+        }
+    }
+    return ordersMutable.toList()
 }
 
 fun main() {
-    val testCar = Car("Burga", "BMW", 2025, "ITE69G", "Grey")
-    val stringCar = serialize(testCar)
-    val returnedCar = deserialize(stringCar)
-    println("${returnedCar.make}${returnedCar.model}${returnedCar.year}${returnedCar.vin}${returnedCar.color}")
+    registerOrder()
+    show()
+    val ttt = removeCompletedOrders(orders, "completed")
+    for (tt in ttt) {
+        println("id: ${tt.id}, status: ${tt.status}, type: ${tt.type}")
+    }
 }
