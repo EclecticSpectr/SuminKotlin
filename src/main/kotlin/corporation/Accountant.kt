@@ -14,14 +14,14 @@ class Accountant(
 
         while (true) {
             val operationCodes = OperationCode.entries
-            print("Enter the operation code. ")
+            println("Enter the operation code. ")
             for ((index, code) in operationCodes.withIndex()) {
-                print("$index - ${code.title}")
-                if (index < operationCodes.size - 1) {
-                    print(", ")
-                } else {
-                    print(": ")
-                }
+                print("$index - ${code.title}\n")
+//                if (index < operationCodes.size - 1) {
+//                    print(", ")
+//                } else {
+//                    print(": ")
+//                }
             }
             val operationIndex = readln().toInt()
             val operationCode = operationCodes[operationIndex]
@@ -30,6 +30,22 @@ class Accountant(
                 OperationCode.REGISTER_NEW_ITEM -> registerNewItem()
                 OperationCode.SHOW_ALL_ITEMS -> showAllItems()
                 OperationCode.REMOVE_PRODUCT_CARD -> removeProductCard()
+                OperationCode.REGISTER_NEW_EMPLOYEE -> registryNewEmployee()
+                OperationCode.FIRE_AN_EMPLOYEE -> TODO()
+                OperationCode.SHOW_ALL_EMPLOYEES -> TODO()
+            }
+        }
+    }
+
+    private fun registryNewEmployee() {
+        print("Choose position - ")
+        val employeeTypes = EmployeeType.entries
+        for ((index, type) in employeeTypes.withIndex()) {
+            print("$index - ${type.title}")
+            if (index < employeeTypes.size - 1) {
+                print(", ")
+            } else {
+                println(": ")
             }
         }
     }
