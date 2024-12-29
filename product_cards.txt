@@ -1,0 +1,2 @@
+Chips%Lays%30%400%FOOD
+Sneakers%Nike%500%43.0%SHOE
